@@ -8,16 +8,26 @@ import java.io.IOException;
 public class MainViewController {
 
     /**
-     * It goes to the "play" scene.
+     * It goes to the "play" scene with MySQL Steup
      */
     @FXML
-    public void newLogin(){
+    public void newLoginMySQL(){
         try{
             UniGraoVerse.main.goScene("play");
+            // Todo: setup the unit persistence name (probably one line is enough)
         }catch(IOException e){
             System.exit(1);
         }
     }
+    @FXML
+        public void newLoginSQLite(){
+            try{
+                UniGraoVerse.main.goScene("play");
+                // Todo: setup the unit persistence name (probably one line is enough)
+            }catch(IOException e){
+                System.exit(1);
+            }
+        }
 
     /**
      * It goes to the "credits" scene.

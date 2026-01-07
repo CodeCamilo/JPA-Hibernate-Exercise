@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="500" prefWidth="650" styleClass="bg-main" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ieselgrao.hibernatepractica.view.MainViewController">
-    <Button layoutX="208.0" layoutY="345.0" onMouseClicked="#newLogin" styleClass="btn" text="Login" />
-    <Button layoutX="377.0" layoutY="345.0" onMouseClicked="#readCredits" styleClass="btn" text="Credits" />
+    <Button layoutX="120.0" layoutY="345.0" onMouseClicked="#newLoginMySQL" styleClass="btn" text="Init (MySQL)" />
+    <Button layoutX="270.0" layoutY="345.0" onMouseClicked="#newLoginSQLite" styleClass="btn" text="Init (SQLite)" />
+    <Button layoutX="430.0" layoutY="345.0" onMouseClicked="#readCredits" styleClass="btn" text="Credits" />
 </AnchorPane>

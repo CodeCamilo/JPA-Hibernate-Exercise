@@ -217,10 +217,11 @@ public class PlayViewController {
     @FXML
     private void setupBackButton() {
         backButton.setOnAction(e -> {
+            System.out.println(currentLevel);
             try {
                 if ("planets".equals(currentLevel)) {
                     loadSolarSystemsTable();
-                } else if ("solarSystem".equals(currentLevel)) {
+                } else if ("solarSystems".equals(currentLevel)) {
                     UniGraoVerse.main.goScene("main");
                 }
             } catch (IOException ex) {
