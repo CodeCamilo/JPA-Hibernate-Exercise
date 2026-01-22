@@ -1,21 +1,41 @@
 package org.ieselgrao.hibernatepractica.model;
 
+import jakarta.persistence.*;
+
 import java.util.LinkedList;
+import java.util.List;
 
 public class SolarSystem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
+
+    @Column(name = "name",  nullable = false)
     private String name;
+
+    @Column(name = "star_name")
     private String starName;
-    private double starDistance; // Main star distance to the Sun, in parsecs
-    private double Radius;      // Distance to most far away planet, in UA
-    private LinkedList<Planet> planets;
+
+    // Main star distance to the Sun, in parsecs
+    @Column(name = "star_distance")
+    private double starDistance;
+
+    // Distance to most far away planet, in UA
+    @Column(name = "radius")
+    private double Radius;
+
+
+    @OneToMany(mappedBy = "solarSystem", cascade = CascadeType.ALL)
+    //Aqui cambie el LinkedList
+    private List<Planet> planets = new LinkedList<>();
 
     public SolarSystem(String name, String starName, double starDistance, double Radius) {
         this.name = name;
         this.starName = starName;
         this.starDistance = starDistance;
         this.Radius = Radius;
-        this.planets = new LinkedList<>();
     }
 
     // Setters and getters
@@ -68,7 +88,7 @@ public class SolarSystem {
         this.Radius = Radius;
     }
 
-    public LinkedList<Planet> getPlanets() {
+    public List<Planet> getPlanets() {
         return planets;
     }
 

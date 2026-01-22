@@ -1,7 +1,10 @@
 package org.ieselgrao.hibernatepractica.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
 public class Planet {
 
     // Constants for minimum values
@@ -14,14 +17,35 @@ public class Planet {
         private SolarSystem solarSystem
      */
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "number_of_moons")
     private int numberOfMoons;
+
+    @Column(name = "mass")
     private double mass;
+
+    @Column(name = "radius")
     private double radius;
+
+    @Column (name = "gravity")
     private double gravity;
+
+    @Column (name = "last_albedo_measurement")
     private LocalDate lastAlbedoMeasurement;
+
+    @Column (name = "has_rings")
     private boolean hasRings;
+
+    @ManyToOne
+    @JoinColumn(name = "id_solar_system")
+    private SolarSystem solarSystem;
+
 
     // Constructor with no "numerOfMoons" and no "hasRings" to simplify things
     public Planet(String name, double mass, double radius, double gravity, LocalDate lastAlbedoMeasurement) {

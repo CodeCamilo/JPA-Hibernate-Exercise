@@ -25,13 +25,13 @@ public class UniGraoVerseController {
         // This method is "hardcoded" to have some initial data
         LinkedList<SolarSystem> solarSystems = new LinkedList<>();
         solarSystems.add(new SolarSystem("Sistema Solar", "Sol", 0, 40));
-        solarSystems.get(0).setId(1); // Also, the id should not be setted like this!! Remove setId method in the future
+
 
         solarSystems.add(new SolarSystem("Lich system", "Lich", 700, 0.46));
-        solarSystems.get(1).setId(2);
+
 
         solarSystems.add(new SolarSystem("Sistema Inventado", "Aitana", 100, 55));
-        solarSystems.get(2).setId(3);
+
 
         return solarSystems;
     }
@@ -71,16 +71,7 @@ public class UniGraoVerseController {
         // Asign IDs.
         // TODO: remove this loop. IDs should be added in other way
         // Also, ID should not repeat even in different solar sistems
-        for (SolarSystem ss : solarSystems)
-        {
-            System.out.println("Loaded " + ss.getPlanets().size() + " planets " + " for " + ss.getName());
 
-            List<Planet> planets = ss.getPlanets();
-            for (int i = 0; i < planets.size(); i++)
-            {
-                planets.get(i).setId(i+1); // Id starts by 1
-            }
-        }
     }
 
 
@@ -179,8 +170,6 @@ public class UniGraoVerseController {
 
         return planetsData;
     }
-
-
 
 
 }
