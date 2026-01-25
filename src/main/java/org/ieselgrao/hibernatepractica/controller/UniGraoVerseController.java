@@ -22,6 +22,7 @@ public class UniGraoVerseController {
     // TODO: Load all planets from the selected persistence unit
     private LinkedList<SolarSystem> loadSolarSystems()
     {
+        //Cambiar mas
         // This method is "hardcoded" to have some initial data
         LinkedList<SolarSystem> solarSystems = new LinkedList<>();
         solarSystems.add(new SolarSystem("Sistema Solar", "Sol", 0, 40));
