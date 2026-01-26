@@ -43,7 +43,7 @@ public class Planet {
     private boolean hasRings;
 
     @ManyToOne
-    @JoinColumn(name = "id_solar_system")
+    @JoinColumn(name = "solar_system_id")
     private SolarSystem solarSystem;
 
 
@@ -131,5 +131,10 @@ public class Planet {
     }
     public void setHasRings(boolean hasRings) {
         this.hasRings = hasRings;
+    }
+
+
+    public void setSolarSystem(SolarSystem solarSystem) {
+        this.solarSystem = solarSystem;
     }
 }

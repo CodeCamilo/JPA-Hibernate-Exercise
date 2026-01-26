@@ -97,6 +97,11 @@ public class SolarSystem {
         {
             throw new UniverseException(UniverseException.INVALID_PLANET_LIST);
         }
+
+        for(Planet p : planets){
+            p.setSolarSystem(this);
+        }
         this.planets = planets;
+
     }
 }
