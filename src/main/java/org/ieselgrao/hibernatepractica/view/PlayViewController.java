@@ -40,7 +40,7 @@ public class PlayViewController {
 
     @FXML
     public void initialize() {
-        controller = new UniGraoVerseController();
+        controller = UniGraoVerseController.getInstance();
         loadSolarSystemsTable();
         setupBackButton();
         setupAddButton();
@@ -246,14 +246,39 @@ public class PlayViewController {
     // TODO: complete this method calling properly to the controller
     @FXML
     private void setupDeleteButton() {
-        deleteButton.setOnAction( e -> {
+        deleteButton.setOnAction(e -> {
             List<String> selectedRow = mainTableView.getSelectionModel().getSelectedItem();
-            if (currentLevel.equals("planets")) {
-                // controller.removePlanet(...);
-            } else if (currentLevel.equals("solarSystems")) {
-                // controller.removeSolarSystem(...);
+
+            if (selectedRow == null || selectedRow.isEmpty()) {
+                showErrorDialog("No selection", "Please select a row to delete.");
+                return;
             }
-            System.out.println("Deleting is still not implemented: " + selectedRow);
+
+            try {
+                int id = Integer.parseInt(selectedRow.get(0));
+
+                // Mostrar confirmación
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirma su opcion");
+                alert.setHeaderText("Estas seguro que quieres elimianr esto?");
+                alert.setContentText("Esta accion no se puede deshacer.");
+
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        if (currentLevel.equals("planets")) {
+                            controller.removePlanet(id);
+                            loadPlanetsTable(); // Recargar la tabla
+                        } else if (currentLevel.equals("solarSystems")) {
+                            controller.removeSolarSystem(id);
+                            loadSolarSystemsTable(); // Recargar la tabla
+                        }
+                    }
+                });
+            } catch (NumberFormatException ex) {
+                showErrorDialog("Invalid ID", "Could not parse the ID of the selected item.");
+            } catch (Exception ex) {
+                showErrorDialog("Deletion Error", "Hubo un error intentando eliminar el item " + ex.getMessage());
+            }
         });
     }
 

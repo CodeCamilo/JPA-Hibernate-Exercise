@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
 public class SolarSystem {
 
     @Id
@@ -31,6 +32,9 @@ public class SolarSystem {
     //Aqui cambie el LinkedList
     private List<Planet> planets = new LinkedList<>();
 
+    public SolarSystem() {
+    }
+
     public SolarSystem(String name, String starName, double starDistance, double Radius) {
         this.name = name;
         this.starName = starName;
@@ -42,9 +46,13 @@ public class SolarSystem {
     public int getId(){
         return id;
     }
+
+    /*
     public void setId(int id){  // Should be removed in the future, since ID should not be assigned this way
         this.id = id;
     }
+
+     */
 
     public String getName() {
         return name;
