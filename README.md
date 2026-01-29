@@ -71,3 +71,87 @@ crea IDs repetidos para planetas de distintos sistemas solares. Esto te va a dar
 
 ## Configuraciones Extra que hice
 En la clase SolarSystem cambié el LiskedList al principio, para que fuera una List y luego se vovliera una linkedList
+
+Planet.java
+
+Anadi la anotacion @Entity para mapear la clase con la base de datos
+Implemente un constructor vacio requerido por JPA
+Configure la relacion @ManyToOne con SolarSystem
+Anadi el campo solarSystem con @JoinColumn para la clave foranea
+
+SolarSystem.java
+
+Anadi la anotacion @Entity (estaba ausente en la version original)
+Implemente un constructor vacio para JPA
+Configure la relacion @OneToMany con Planet usando cascade
+Estableci el mappedBy correcto para la relacion bidireccional
+
+
+2. Implementacion de Clases DAO
+   PlanetDAO.java
+   Implemente las siguientes operaciones CRUD:
+
+savePlanet() - Crear un nuevo planeta
+loadPlanet() - Cargar planeta por ID
+loadAllPlanets() - Cargar todos los planetas
+updatePlanet() - Actualizar planeta existente
+deletePlanet() - Eliminar planeta por ID
+
+Cada metodo incluye:
+
+Gestion correcta de transacciones
+Manejo de errores con rollback
+Cierre apropiado del EntityManager
+Mensajes de log informativos
+
+SolarSystemDAO.java
+Implemente las siguientes operaciones CRUD:
+
+saveSolarSystem() - Crear un nuevo sistema solar
+loadSolarSystem() - Cargar sistema solar por ID
+loadAllSolarSystems() - Cargar todos los sistemas solares
+updateSolarSystem() - Actualizar sistema solar existente
+deleteSolarSystem() - Eliminar sistema solar 
+
+
+3. Refactorizacion del Controlador
+   UniGraoVerseController.java
+   Realice los siguientes cambios importantes:
+
+Implemente el patron Singleton para garantizar una unica instancia
+Anadi gestion del EntityManagerFactory y los DAOs
+Implemente el metodo setPersistenceUnitName() para cambiar entre MySQL y SQLite
+Refactorice loadSolarSystems() para cargar datos desde la base de datos
+Elimine el metodo initializeDefaultData() que insertaba datos hardcodeados
+Implemente completamente los metodos:
+
+addSolarSystem() - Ahora persiste en la BD
+updatePlanet() - Ahora actualiza en la BD
+addPlanet() - Ahora persiste con relacion al sistema solar
+removePlanet() - Ahora elimina de la BD
+removeSolarSystem() - Ahora elimina de la BD con cascade
+
+
+Anadi el metodo close() para liberar recursos
+Anadi metodos estaticos getInstance() y resetInstance()
+
+
+4. Actualizacion de las Vistas
+   PlayViewController.java
+
+Modifique initialize() para usar el patron Singleton del controlador
+Implemente completamente el metodo setupDeleteButton():
+
+Anadi validacion de seleccion
+Implemente dialogo de confirmacion
+Integre llamadas a removePlanet() y removeSolarSystem()
+Anadi recarga automatica de tablas despues de eliminar
+Implemente manejo de excepciones con mensajes al usuario
+
+
+
+MainViewController.java
+
+Implemente newLoginMySQL() con llamada a setPersistenceUnitName("unidad_planetas")
+Implemente newLoginSQLite() con llamada a setPersistenceUnitName("unidad_sqlite")
+Ahora el usuario puede elegir que base de datos usar antes de iniciar

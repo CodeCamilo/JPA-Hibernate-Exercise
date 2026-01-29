@@ -13,6 +13,8 @@ public class SolarSystem {
 
     private int id;
 
+
+
     @Column(name = "name",  nullable = false)
     private String name;
 
@@ -28,7 +30,7 @@ public class SolarSystem {
     private double Radius;
 
 
-    @OneToMany(mappedBy = "solarSystem", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "solarSystem", fetch = FetchType.EAGER)
     //Aqui cambie el LinkedList
     private List<Planet> planets = new LinkedList<>();
 

@@ -250,7 +250,7 @@ public class PlayViewController {
             List<String> selectedRow = mainTableView.getSelectionModel().getSelectedItem();
 
             if (selectedRow == null || selectedRow.isEmpty()) {
-                showErrorDialog("No selection", "Please select a row to delete.");
+                showErrorDialog("No hay ninguna seleccion", "Por favor seleccione una columna para eliminar.");
                 return;
             }
 
@@ -260,8 +260,8 @@ public class PlayViewController {
                 // Mostrar confirmación
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirm Deletion");
-                alert.setHeaderText("Are you sure you want to delete this item?");
-                alert.setContentText("This action cannot be undone.");
+                alert.setHeaderText("Estas seguro de que quieres eliminar esto?");
+                alert.setContentText("No se puede deshacer esta accion");
 
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
@@ -275,9 +275,9 @@ public class PlayViewController {
                     }
                 });
             } catch (NumberFormatException ex) {
-                showErrorDialog("Invalid ID", "Could not parse the ID of the selected item.");
+                showErrorDialog("Invalid ID", " :" + ex.getMessage());
             } catch (Exception ex) {
-                showErrorDialog("Deletion Error", "An error occurred while deleting: " + ex.getMessage());
+                showErrorDialog("Error al borrar:", "Un error ocurrio mientras se intentaba eliminar: " + ex.getMessage());
             }
         });
     }

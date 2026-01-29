@@ -7,7 +7,7 @@ package org.ieselgrao.hibernatepractica;
  * This class is used as entry point of a JAR file created by us.
  * Otherwise, it is not used.
  *
- * @author Carles Gallel Soler
+ * @author Camilo Iglesias
  * @version 1.0
  */
 public class Main {

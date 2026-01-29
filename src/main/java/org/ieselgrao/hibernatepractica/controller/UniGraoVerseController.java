@@ -22,7 +22,7 @@ public class UniGraoVerseController {
     private EntityManagerFactory emf;
     private PlanetDAO planetDAO;
     private SolarSystemDAO solarSystemDAO;
-    private String persistenceUnitName = "unidad_planetas"; // Por defecto
+    private static String persistenceUnitName = "unidad_planetas"; // Por defecto
 
     private UniGraoVerseController() {
         // Inicializar el EntityManagerFactory y los DAOs
@@ -33,7 +33,7 @@ public class UniGraoVerseController {
         solarSystems = loadSolarSystems();
     }
 
-
+    //Para obtener la instancia unica del controlador
     public static UniGraoVerseController getInstance() {
         if (instance == null) {
             instance = new UniGraoVerseController();
@@ -54,10 +54,18 @@ public class UniGraoVerseController {
         // Reiniciar la instancia si ya existe
         resetInstance();
         // Crear nueva instancia con la unidad de persistencia especificada
+
+        persistenceUnitName = unitName;
+
+        System.out.println("Unidad de persistencia cambiada a: " + unitName);
+
+        /*
         instance = new UniGraoVerseController();
         instance.persistenceUnitName = unitName;
         instance.emf = Persistence.createEntityManagerFactory(unitName);
         instance.solarSystems = instance.loadSolarSystems();
+
+         */
     }
 
     private LinkedList<SolarSystem> loadSolarSystems() {
@@ -73,7 +81,7 @@ public class UniGraoVerseController {
         return new LinkedList<>(loadedSystems);
     }
 
-
+    //solo cuando no hay datos, para que no se vea vacio al iniciar el programa
     private void initializeDefaultData() {
         // Crear sistema solar
         SolarSystem solarSystem = new SolarSystem("Sistema Solar", "Sol", 0.0, 30.0);
