@@ -46,6 +46,9 @@ public class Planet {
     @JoinColumn(name = "solar_system_id")
     private SolarSystem solarSystem;
 
+    // Constructor vacío requerido por JPA
+    public Planet() {
+    }
 
     // Constructor with no "numerOfMoons" and no "hasRings" to simplify things
     public Planet(String name, double mass, double radius, double gravity, LocalDate lastAlbedoMeasurement) {

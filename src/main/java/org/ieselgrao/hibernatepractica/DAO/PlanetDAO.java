@@ -11,26 +11,21 @@ import java.util.List;
 
 public class PlanetDAO {
 
+
     public void savePlanet(Planet planet, EntityManagerFactory emf) {
-
         EntityManager em = emf.createEntityManager();
-
         EntityTransaction transaction = em.getTransaction();
 
         try {
-
             transaction.begin();
-
             em.persist(planet);
-
             transaction.commit();
-            System.out.println("El planeta " + planet.getName()+ " ha sido guardado (persisted) con éxito.");
-
+            System.out.println("El planeta " + planet.getName() + " ha sido guardado (persisted) con éxito.");
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            System.err.println("Error al guardar los planetas. Se realizó un rollback: " + e.getMessage());
+            System.err.println("Error al guardar el planeta. Se realizó un rollback: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
@@ -73,7 +68,6 @@ public class PlanetDAO {
 
         return planets;
     }
-
 
     public void updatePlanet(Planet planet, EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
@@ -121,5 +115,4 @@ public class PlanetDAO {
             }
         }
     }
-
 }

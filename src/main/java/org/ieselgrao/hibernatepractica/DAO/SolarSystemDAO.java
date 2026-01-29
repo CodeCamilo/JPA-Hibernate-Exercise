@@ -10,7 +10,9 @@ import org.ieselgrao.hibernatepractica.model.SolarSystem;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SolarSystemDAO {
+
 
     public void saveSolarSystem(SolarSystem solarSystem, EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
@@ -50,6 +52,7 @@ public class SolarSystemDAO {
         return solarSystem;
     }
 
+
     public List<SolarSystem> loadAllSolarSystems(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
         List<SolarSystem> solarSystems = new ArrayList<>();
@@ -67,6 +70,29 @@ public class SolarSystemDAO {
 
         return solarSystems;
     }
+
+
+    public void updateSolarSystem(SolarSystem solarSystem, EntityManagerFactory emf) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            em.merge(solarSystem);
+            transaction.commit();
+            System.out.println("El sistema solar " + solarSystem.getName() + " ha sido actualizado con éxito.");
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            System.err.println("Error al actualizar el sistema solar. Se realizó un rollback: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
 
     public void deleteSolarSystem(int id, EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
@@ -95,52 +121,39 @@ public class SolarSystemDAO {
     }
 
 
-
-    public Planet loadPlanet(int id, EntityManagerFactory emf){
+    public Planet loadPlanet(int id, EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
-
         Planet planet = null;
 
-        try{
+        try {
             planet = em.find(Planet.class, id);
         } catch (Exception e) {
-            System.err.println("Error al importar el planeta con id: " + id + ", " +e.getMessage());
-
-        }finally {
-            if(em != null && em.isOpen()){
+            System.err.println("Error al cargar el planeta con id: " + id + ", " + e.getMessage());
+        } finally {
+            if (em != null && em.isOpen()) {
                 em.close();
             }
         }
-
 
         return planet;
     }
 
-    public List<Planet> loadAllPlanets(EntityManagerFactory emf){
 
+    public List<Planet> loadAllPlanets(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
-
         List<Planet> planets = new ArrayList<>();
 
-        try{
-
-            Query q = em.createQuery("SELECT p FROM Planets p", Planet.class);
-
+        try {
+            Query q = em.createQuery("SELECT p FROM Planet p", Planet.class);
             planets = q.getResultList();
-        }catch (Exception e){
-
-            System.err.println("Error intentando obtener el listado de planetas , " + e.getMessage());
-
-        }finally {
-            if(em != null && em.isOpen()){
+        } catch (Exception e) {
+            System.err.println("Error al obtener el listado de planetas: " + e.getMessage());
+        } finally {
+            if (em != null && em.isOpen()) {
                 em.close();
             }
-
         }
 
         return planets;
-
     }
-
-
 }

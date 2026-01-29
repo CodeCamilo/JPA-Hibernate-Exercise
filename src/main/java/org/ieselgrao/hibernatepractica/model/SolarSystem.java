@@ -32,6 +32,7 @@ public class SolarSystem {
     //Aqui cambie el LinkedList
     private List<Planet> planets = new LinkedList<>();
 
+    // Constructor vacío requerido por JPA
     public SolarSystem() {
     }
 

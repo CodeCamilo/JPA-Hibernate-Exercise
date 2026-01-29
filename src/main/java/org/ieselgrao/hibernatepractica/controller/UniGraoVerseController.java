@@ -60,21 +60,20 @@ public class UniGraoVerseController {
         instance.solarSystems = instance.loadSolarSystems();
     }
 
-
     private LinkedList<SolarSystem> loadSolarSystems() {
         List<SolarSystem> loadedSystems = solarSystemDAO.loadAllSolarSystems(emf);
 
         // Si no hay sistemas solares, crear algunos de ejemplo
         if (loadedSystems.isEmpty()) {
             System.out.println("No se encontraron sistemas solares. Creando datos de ejemplo...");
-
+            initializeDefaultData();
             loadedSystems = solarSystemDAO.loadAllSolarSystems(emf);
         }
 
         return new LinkedList<>(loadedSystems);
     }
 
-/*
+
     private void initializeDefaultData() {
         // Crear sistema solar
         SolarSystem solarSystem = new SolarSystem("Sistema Solar", "Sol", 0.0, 30.0);
@@ -135,10 +134,7 @@ public class UniGraoVerseController {
             }
         }
     }
-*/
-    /**
-     * Añado un sistema solar y lo persisto en la base de datos
-     */
+
     public void addSolarSystem(String name, String starName, double starDistance, double radius) {
         SolarSystem newSystem = new SolarSystem(name, starName, starDistance, radius);
         solarSystemDAO.saveSolarSystem(newSystem, emf);
@@ -147,10 +143,7 @@ public class UniGraoVerseController {
         solarSystems = loadSolarSystems();
     }
 
-    /**
-     * Actualiza un planeta existente y lo persiste en la base de datos
-     * @return true si es exitoso, false si falla
-     */
+
     public boolean updatePlanet(int planetID, String name, double mass, double radius, double gravity, LocalDate date) {
         try {
             Planet planet = planetDAO.loadPlanet(planetID, emf);
@@ -177,9 +170,6 @@ public class UniGraoVerseController {
         }
     }
 
-    /**
-     * Añade un planeta al sistema solar especificado y lo persiste
-     */
     public void addPlanet(int solarSystemId, String name, double mass, double radius, double gravity, LocalDate lastAlbedoMeasurement) {
         try {
             SolarSystem solarSystem = solarSystemDAO.loadSolarSystem(solarSystemId, emf);
@@ -202,9 +192,7 @@ public class UniGraoVerseController {
         }
     }
 
-    /**
-     * Elimina un planeta de la base de datos
-     */
+
     public void removePlanet(int planetId) {
         try {
             planetDAO.deletePlanet(planetId, emf);
@@ -216,9 +204,7 @@ public class UniGraoVerseController {
         }
     }
 
-    /**
-     * Elimina un sistema solar de la base de datos (y sus planetas por cascade)
-     */
+
     public void removeSolarSystem(int solarSystemId) {
         try {
             solarSystemDAO.deleteSolarSystem(solarSystemId, emf);
@@ -230,10 +216,7 @@ public class UniGraoVerseController {
         }
     }
 
-    /**
-     * Get the list of solar systems
-     * @return List of solar system in JSON format with keys name, star and radius
-     */
+
     public List<String> getSolarSystemsData() {
         List<String> solarSystemsData = new ArrayList<>();
         Gson gson = new Gson();
@@ -251,10 +234,7 @@ public class UniGraoVerseController {
         return solarSystemsData;
     }
 
-    /**
-     * Get the list of planets for a given solar system
-     * @return A list with all planets data, in json format with keys 'name', 'mass' and 'radius'
-     */
+
     public List<String> getPlanetsData(int solarSystemId) {
         List<String> planetsData = new ArrayList<>();
         Gson gson = new Gson();
@@ -279,9 +259,7 @@ public class UniGraoVerseController {
         return planetsData;
     }
 
-    /**
-     * Cierra el EntityManagerFactory cuando ya no se necesita
-     */
+
     public void close() {
         if (emf != null && emf.isOpen()) {
             emf.close();

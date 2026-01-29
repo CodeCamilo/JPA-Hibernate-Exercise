@@ -9,7 +9,8 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>Planet</class>
+        <class>org.ieselgrao.hibernatepractica.model.Planet</class>
+        <class>org.ieselgrao.hibernatepractica.model.SolarSystem</class>
 
         <properties>
             <!--Esta etiqueta permite crear las tablas que no existan-->
@@ -29,4 +30,21 @@
 
         </properties>
     </persistence-unit>
+
+    <persistence-unit name="unidad_sqlite" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>org.ieselgrao.hibernatepractica.model.Planet</class>
+        <class>org.ieselgrao.hibernatepractica.model.SolarSystem</class>
+
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
+            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:universe.db" />
+            <property name="hibernate.show_sql" value="true" />
+        </properties>
+    </persistence-unit>
+
 </persistence>

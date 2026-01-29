@@ -259,9 +259,9 @@ public class PlayViewController {
 
                 // Mostrar confirmación
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirma su opcion");
-                alert.setHeaderText("Estas seguro que quieres elimianr esto?");
-                alert.setContentText("Esta accion no se puede deshacer.");
+                alert.setTitle("Confirm Deletion");
+                alert.setHeaderText("Are you sure you want to delete this item?");
+                alert.setContentText("This action cannot be undone.");
 
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
@@ -277,7 +277,7 @@ public class PlayViewController {
             } catch (NumberFormatException ex) {
                 showErrorDialog("Invalid ID", "Could not parse the ID of the selected item.");
             } catch (Exception ex) {
-                showErrorDialog("Deletion Error", "Hubo un error intentando eliminar el item " + ex.getMessage());
+                showErrorDialog("Deletion Error", "An error occurred while deleting: " + ex.getMessage());
             }
         });
     }
